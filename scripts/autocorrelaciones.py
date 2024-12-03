@@ -187,13 +187,40 @@ autocor_delitos = autocorrelacion(delitos_mensuales["delitos_cometidos"],
 autocor_delitos[0]
 autocor_delitos[1]
 
-pautocor_delitos = autocorrelacion_parcial(delitos_mensuales["delitos_cometidos"],36,0.99,"Delitos cometidos mensualmente")
+
+#%%
+
+autocor_climas = autocorrelacion(climas_nyc["temp_c"],
+                                  168,
+                                  0.95,
+                                  "Temperaturas en NYC durante 2013")
+autocor_climas[0]
+autocor_climas[1]
+
+#%%q
+
+pautocor_delitos = autocorrelacion_parcial(delitos_mensuales["delitos_cometidos"],
+                                  36,
+                                  0.95,
+                                  "Delitos cometidos mensualmente")
+pautocor_delitos[0]
 pautocor_delitos[1]
 
-auto_delitos = acf(delitos_mensuales["delitos_cometidos"], nlags=36, alpha=0.05)
+pautocor_ca = autocorrelacion_parcial(ruidos["ca"],
+                                  36,
+                                  0.95,
+                                  "Caminata aleatoria")
+pautocor_ca[0]
+pautocor_ca[1]
 
 
+pautocor_wn = autocorrelacion_parcial(ruidos["wn"],
+                                  36,
+                                  0.95,
+                                  "Ruido blanco")
+pautocor_wn[0]
+pautocor_wn[1]
 
 
-
+#%%
 
