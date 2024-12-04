@@ -97,6 +97,14 @@ delitos_mensuales["6_meses_SMA"] = delitos_mensuales["delitos_cometidos"].rollin
 
 #%%
 
+'''
+################################################################
+################################################################
+##############   FUNCIÓN DE MEDIAS MÓVILES    ##################
+################################################################
+################################################################
+'''
+
 def medias_moviles(tabla,columna_datos,columna_fecha,lista_tipos_MA,lista_parametros_MA,escala,titulo):
     tabla["tipo"] = "original"
     tablas = [tabla[[columna_fecha,columna_datos,"tipo"]]]
@@ -158,23 +166,41 @@ def medias_moviles(tabla,columna_datos,columna_fecha,lista_tipos_MA,lista_parame
     return [auxiliares,grafica]
 
 #%%
-
+'''
 #medias_moviles(tabla,columna_datos,columna_fecha,lista_tipos_MA,lista_parametros_MA,escala,titulo)
 
 # lista_tipos_MA: "SMA", "EWMA", "DoubHW", "TripHW"
-# lista_parámetros_MA: entero, entero, "add" o "mul", ["add",periodo de estacionalidad] o ["mul",periodo de estacionalidad]
+# lista_parámetros_MA: 
+##    "SMA": entero
+##    "EWMA": entero
+##    "DoubHW": "add" o "mul"
+##    "TripHW": ["add",periodo de estacionalidad] o ["mult",periodo de estacionalidad]
+'''
+
+medias_moviles(delitos_mensuales,
+               "delitos_cometidos",
+               "fecha_num",
+               ["SMA","SMA","SMA"],
+               [12,6,24],
+               "meses",
+               "Delitos mensuales")[1]
 
 
 medias_moviles(delitos_mensuales,
                "delitos_cometidos",
                "fecha_num",
-               ["EWMA","DoubHW","TripHW"],
-               [12,"add",["add",12]],
+               ["SMA","EWMA","DoubHW"],
+               [3,6,"mul"],
                "meses",
                "Delitos mensuales")[1]
 
-
-
+medias_moviles(delitos_mensuales,
+               "delitos_cometidos",
+               "fecha_num",
+               ["EWMA","DoubHW","TripHW"],
+               [12,"add", ["add",12]],
+               "meses",
+               "Delitos mensuales")[1]
 
 medias_moviles(delitos_mensuales,
                "delitos_cometidos",
@@ -200,6 +226,4 @@ medias_moviles(ruidos,
                [50,100,20],
                "meses",
                "Caminata aleatoria")[1]
-
-
 

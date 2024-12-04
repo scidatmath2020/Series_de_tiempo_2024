@@ -78,19 +78,32 @@ ruidos_ts <- ts(
 ################################################################################
 
 
-SMA(delitos_mensuales_ts,n=12)
-plot(SMA(delitos_mensuales_ts,n=12))
+delitos_12sma = SMA(delitos_mensuales_ts,n=12)
+delitos_24sma = SMA(delitos_mensuales_ts,n=24)
 
-delitos_ets = ets(delitos_mensuales_ts)
+plot(delitos_mensuales_ts)
+lines(delitos_12sma,col="red")
+lines(delitos_24sma,col="blue")
+
+
+cambio_12sma = SMA(tipo_cambio_ts,n=30)
+cambio_365sma = SMA(tipo_cambio_ts,n=365)
+
+plot(tipo_cambio_ts)
+lines(cambio_12sma,col="red")
+lines(cambio_365sma,col="blue")
+
+######## error, tendencia, estacionalidad: 
+######## A: aditivo, M: multiplicativo, N: ninguo, Z: automático
+######## ANN   exponencial ponderado
+######## AAN   doble suavizado aditivo
+######## AMN   doble suavizado multiplicativo
+######## AAA   triple suavizado aditivo
+######## AAM   triple suavizado multiplicativo
+
+delitos_ets = ets(delitos_mensuales_ts, model="ANN")
 plot(delitos_mensuales_ts)
 lines(delitos_ets$fitted,col="red")
-
-?ets
-
-delitos_ets_exp_simple = ets(delitos_mensuales_ts,model="ANN")
-plot(delitos_mensuales_ts)
-lines(delitos_ets_exp_simple$fitted,col="red")
-
 
 delitos_ets_HW_doub = ets(delitos_mensuales_ts,model="AAN")
 plot(delitos_mensuales_ts)
